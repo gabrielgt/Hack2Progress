@@ -16,6 +16,7 @@
 
 .float-left {
     float: left;
+    clear: left;
 }
 
 .image-selected {

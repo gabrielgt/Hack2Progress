@@ -18,7 +18,8 @@ namespace webapp.Controllers
     public class BingApiSearchController : Controller
     {
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<string>> SearchImages(string searchTerm)
+        public ActionResult<IEnumerable<string>> SearchImages(string searchTerm, string color, string freshness, string countryCode, 
+            string safeSearch, string aspect)
         {
             if (Startup.BingSearchApiKey == null)
             {
@@ -28,7 +29,7 @@ namespace webapp.Controllers
             var telemetry = new TelemetryClient();
             telemetry.TrackEvent("SearchImage", new Dictionary<string, string> { { "SearchTerm", searchTerm } });
 
-            var images = BingApiSearchController.SearchImagesWithSdk(searchTerm);
+            var images = BingApiSearchController.SearchImagesWithSdk(searchTerm, color, freshness, countryCode, safeSearch, aspect);
             var urls = images.Select(img => img.ThumbnailUrl).ToList();
 
             return Ok(urls);
@@ -57,11 +58,13 @@ namespace webapp.Controllers
             return Ok();
         }
 
-        private static IList<ImageObject> SearchImagesWithSdk(string searchTerm)
+        private static IList<ImageObject> SearchImagesWithSdk(string searchTerm, string color, string freshness, string countryCode,
+            string safeSearch, string aspect)
         {
             var subscriptionKey = Startup.BingSearchApiKey;
             var client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(subscriptionKey));
-            var imageResults = client.Images.SearchAsync(query: searchTerm).Result;
+            var imageResults = client.Images.SearchAsync(query: searchTerm, color: color, freshness: freshness, countryCode: countryCode,
+                safeSearch: safeSearch, aspect: aspect).Result;
             return imageResults.Value;
         }
     }

@@ -10,6 +10,11 @@ export class ImageSearchComponent implements OnInit {
   public images: string[];
   public selectedImages: number[];
   public searchTerm: string;
+  public color = '';
+  public freshness = '';
+  public countryCode = 'es-ES';
+  public safeSearch = true;
+  public aspect = 'all';
 
   private httpClient: HttpClient;
   private baseUrl: string;
@@ -20,7 +25,7 @@ export class ImageSearchComponent implements OnInit {
     this.selectedImages = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public onKeyEnter() {
     this.onClickSearchButton();
@@ -31,7 +36,20 @@ export class ImageSearchComponent implements OnInit {
       return;
     }
 
-    this.httpClient.get<string[]>(this.baseUrl + 'api/BingApiSearch/SearchImages?searchTerm=' + this.searchTerm).subscribe(
+    let url: string = this.baseUrl + 'api/BingApiSearch/SearchImages?searchTerm=' + this.searchTerm;
+
+    url += '&color=' + this.color;
+    url += '&freshness=' + this.freshness;
+    url += '&countryCode=' + this.countryCode;
+    url += '&aspect=' + this.aspect;
+
+    if (this.safeSearch === true) {
+      url += '&safeSearch=strict';
+    } else {
+      url += '&safeSearch=off';
+    }
+
+    this.httpClient.get<string[]>(url).subscribe(
       result => {
         this.selectedImages = [];
         this.images = result;
