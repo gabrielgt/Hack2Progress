@@ -1,0 +1,37 @@
+#term {width: 100%; margin-bottom: 15px;}
+#logo {padding: 15px; float: right; border-left: 2px solid #ccc;}
+#query {float: left;}
+#search-button {float: right; height: 26px;}
+#send-button {height: 26px; margin-top: 20px; margin-left: 20px;}
+
+.options {
+    margin-bottom: 10px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    vertical-align: middle;
+}
+
+.float-left {
+    float: left;
+}
+
+.image-selected {
+    border-width: 4px;
+    border-color: red;
+    border-style: solid;
+}
+
+img {
+    margin: 2px;
+    border-width: 4px;
+    border-color: white;
+    border-style: solid;
+}
+
+p.images {display: inline-block; font-size: 9px; vertical-align: top;}
+p.images img {float: none;}
+p.relatedSearches {clear: none;}
+#logo p, p.news, p.webPages, p.images {clear: left;}

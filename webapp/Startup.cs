@@ -11,11 +11,13 @@ namespace webapp
     public class Startup
     {
         public static string BingSearchApiKey { get; private set; }
+        public static string StorageConnectionString { get; private set; }
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             BingSearchApiKey = Configuration["Azure:BingSearchApiKey"];
+            StorageConnectionString = Configuration["Azure:StorageConnectionString"];
         }
 
         public IConfiguration Configuration { get; }
