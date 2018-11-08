@@ -31,5 +31,27 @@ namespace webapp.Storage
 
             await blobRef.UploadFromByteArrayAsync(buffer, 0, buffer.Length, null, blobRequestOptions, null);
         }
+
+        public async Task<IEnumerable<string>> GetUriBlobsNewestFirst(string containerName)
+        {
+            var blobs = new List<CloudBlob>();
+
+            CloudBlobContainer container = _blobClient.GetContainerReference(containerName);
+            BlobContinuationToken blobContinuationToken = null;
+            do
+            {
+                var results = await container.ListBlobsSegmentedAsync(null, blobContinuationToken);
+                // Get the value of the continuation token returned by the listing call.
+                blobContinuationToken = results.ContinuationToken;
+                foreach (CloudBlob item in results.Results.OfType<CloudBlob>())
+                {
+                    blobs.Add(item);
+                }
+            } while (blobContinuationToken != null); // Loop while the continuation token is not null.
+
+            return blobs
+                .OrderByDescending(pi => pi.Properties.Created)
+                .Select(pi => pi.Uri.AbsoluteUri);
+        }
     }
 }

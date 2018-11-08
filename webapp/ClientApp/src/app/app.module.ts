@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ImageSearchComponent } from './image-search/image-search.component';
+import { ProcessedImagesComponent } from './processed-images/processed-images.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ImageSearchComponent } from './image-search/image-search.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ImageSearchComponent
+    ImageSearchComponent,
+    ProcessedImagesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { ImageSearchComponent } from './image-search/image-search.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'image-search', component: ImageSearchComponent }
+      { path: 'image-search', component: ImageSearchComponent },
+      { path: 'processed-images', component: ProcessedImagesComponent }
     ])
   ],
   providers: [],

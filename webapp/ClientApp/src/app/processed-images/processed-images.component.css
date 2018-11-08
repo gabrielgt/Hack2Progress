@@ -1,0 +1,16 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    vertical-align: middle;
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  img {
+    margin: 2px;
+    border-width: 4px;
+    border-color: white;
+    border-style: solid;
+  }

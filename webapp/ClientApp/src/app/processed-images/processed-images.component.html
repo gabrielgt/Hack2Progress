@@ -1,0 +1,8 @@
+<div class="float-left">
+  <div class="flex-container">
+    <h3 *ngIf="processedImages">Results</h3>
+  </div>
+  <div class="flex-container">
+    <img src="{{ image }}" height="180" *ngFor="let image of processedImages; let i = index">
+  </div>
+</div>
