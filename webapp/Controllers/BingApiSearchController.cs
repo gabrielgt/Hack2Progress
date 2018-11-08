@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.ApplicationInsights;
 
 namespace webapp.Controllers
 {
@@ -23,6 +24,9 @@ namespace webapp.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Registra la key Azure:BingSearchApiKey");
             }
+
+            var telemetry = new TelemetryClient();
+            telemetry.TrackEvent("SearchImage", new Dictionary<string, string> { { "SearchTerm", searchTerm } });
 
             var images = BingApiSearchController.SearchImagesWithSdk(searchTerm);
             var urls = images.Select(img => img.ThumbnailUrl).ToList();
